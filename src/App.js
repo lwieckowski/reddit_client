@@ -62,7 +62,7 @@ function App() {
 
   return (
     <Context.Provider value={{ state, dispatch }}>
-      <Container>
+      <Container maxWidth="md">
         <TextField
           label="Search Reddit"
           type="search"
@@ -98,7 +98,6 @@ function SearchResult({ post }) {
             </Typography>
         </CardContent>
       </CardActionArea>
-
   </Card>
   );
 }
