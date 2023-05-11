@@ -1,31 +1,39 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 export const initialState = {
   searchTerm: "node",
-  posts: [],
+  data: [],
   error: "",
+  is_loading: false,
 };
-
 
 export const Context = createContext(initialState);
 
 export function reducer(state, action) {
   switch (action.type) {
-    case 'UPDATE_SEARCH_TERM':
+    case "UPDATE_SEARCH_TERM":
       return {
         ...state,
         searchTerm: action.payload,
       };
-    case 'FETCH_POSTS':
+    case "FETCH_DATA":
       return {
         ...state,
-        posts: action.payload,
+        data: action.payload,
+        error: "",
+        is_loading: false,
       };
-    case 'ERROR':
+    case "ERROR":
       return {
         ...state,
         error: action.payload,
-        posts: [],
+        data: [],
+        is_loading: false,
+      };
+    case "IS_LOADING":
+      return {
+        ...state,
+        is_loading: true,
       };
     default:
       return state;
