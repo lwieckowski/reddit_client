@@ -7,7 +7,7 @@ export const initialState = {
   period: "day", // all, year, month, week, day, hour
   data: [],
   error: "",
-  is_loading: false,
+  is_loading: true,
 };
 
 export const Context = createContext(initialState);
@@ -18,16 +18,19 @@ export function reducer(state, action) {
       return {
         ...state,
         term: action.payload,
+        is_loading: true,
       };
     case "UPDATE_SORT":
       return {
         ...state,
         sort: action.payload,
+        is_loading: true,
       };
     case "UPDATE_PERIOD":
       return {
         ...state,
         period: action.payload,
+        is_loading: true,
       };
     case "FETCH_DATA":
       return {
