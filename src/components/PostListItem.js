@@ -25,26 +25,28 @@ export function PostListItem({ post }) {
     return `${secondsAgo} seconds ago`;
   }
 
-  const sxContainer = isSmallScreen ? {} : { display: 'flex', justifyContent: 'space-between' };
-  const thumbSize = isSmallScreen ? 60 : 120;
+  const thumbWidth = isSmallScreen ? 100 : 120;
+  const fontSmall = isSmallScreen ? 11 : 13;
+  const fontLarge = isSmallScreen ? 13 : 16;
+
   return (
     <Card sx={{ minWidth: 275, mt: 1 }}>
-      <CardActionArea sx={ sxContainer }>
+      <CardActionArea sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>
           <CardContent>
-            <Typography sx={{ fontSize: 13 }} color="text.secondary">
+            <Typography sx={{ fontSize: fontSmall }} color="text.secondary">
               <b>{post.subreddit_name_prefixed}</b> {BULLET} Posted by {post.author}{" "}
               {BULLET} {getPostAge(post)}
             </Typography>
             <Typography
-              sx={{ fontSize: 16, mt: 1 }}
+              sx={{ fontSize: fontLarge, mt: 1 }}
               color="text.secondary"
               variant="body2"
               fontWeight="fontWeightBold"
             >
               {post.title}
             </Typography>
-            <Typography sx={{ fontSize: 13, mt: 1 }} color="text.secondary">
+            <Typography sx={{ fontSize: fontSmall, mt: 1 }} color="text.secondary">
               {post.ups} upvotes {BULLET} {post.num_comments} comments {BULLET}{" "}
               {post.total_awards_received} awards
             </Typography>
@@ -52,7 +54,7 @@ export function PostListItem({ post }) {
         </Box>
         <Box>
           <CardMedia
-            sx={{ width: thumbSize, height: thumbSize, m: 1, objectFit: "contain" }}
+            sx={{ width: thumbWidth, height: 120, m: 1, objectFit: "contain" }}
             image={post.thumbnail}
           />
         </Box>
