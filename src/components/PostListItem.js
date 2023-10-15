@@ -1,4 +1,5 @@
 import { Box, CardActionArea, Card, CardContent, Typography, CardMedia } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 
 const SECONDS_IN_MINUTE = 60;
 const MINUTES_IN_HOUR = 60;
@@ -9,6 +10,8 @@ const SECONDS_IN_DAY = SECONDS_IN_HOUR * HOURS_IN_DAY;
 const BULLET = "\u2022";
 
 export function PostListItem({ post }) {
+
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   function getPostAge(post) {
     const created = new Date(post.created_utc * 1000);
@@ -22,9 +25,11 @@ export function PostListItem({ post }) {
     return `${secondsAgo} seconds ago`;
   }
 
+  const sxContainer = isSmallScreen ? {} : { display: 'flex', justifyContent: 'space-between' }
+
   return (
     <Card sx={{ minWidth: 275, mt: 1 }}>
-      <CardActionArea sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <CardActionArea sx={ sxContainer }>
         <Box>
           <CardContent>
             <Typography sx={{ fontSize: 13 }} color="text.secondary">
@@ -47,7 +52,7 @@ export function PostListItem({ post }) {
         </Box>
         <Box>
           <CardMedia
-            sx={{ width: 120, height: 120, m: 1, objectFit: "contain" }}
+            sx={!isSmallScreen && { width: 120, height: 120, m: 1, objectFit: "contain" }}
             image={post.thumbnail}
           />
         </Box>
