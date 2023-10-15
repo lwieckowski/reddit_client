@@ -3,8 +3,8 @@ import { createContext } from "react";
 export const initialState = {
   term: "",
   type: "link", // link (posts), comment, sr (subreddit), user
-  sort: "top", // top, new, hot, relevance, best
-  period: "all", // all, year, month, week, day, hour
+  sort: "best", // new, hot, best
+  period: "day", // all, year, month, week, day, hour
   data: [],
   error: "",
   is_loading: false,
@@ -23,6 +23,11 @@ export function reducer(state, action) {
       return {
         ...state,
         sort: action.payload,
+      };
+    case "UPDATE_PERIOD":
+      return {
+        ...state,
+        period: action.payload,
       };
     case "FETCH_DATA":
       return {

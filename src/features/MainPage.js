@@ -1,22 +1,18 @@
 import { useContext } from "react";
 import { Context } from "../Context";
 import { PostListItem } from "../components/PostListItem";
-import { Stack, Button, Box } from "@mui/material";
+import { Stack, Button, Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { ResultPlaceholder } from "../components/ResultPlaceholder";
 
 export function MainPage() {
   const { state, dispatch } = useContext(Context);
 
-  function handleHot() {
-    dispatch({ type: "UPDATE_SORT", payload: "hot" });
+  function handleSort(e) {
+    dispatch({ type: "UPDATE_SORT", payload: e.target.value });
   }
 
-  function handleNew() {
-    dispatch({ type: "UPDATE_SORT", payload: "new" });
-  }
-
-  function handleTop() {
-    dispatch({ type: "UPDATE_SORT", payload: "top" });
+  function handlePeriod(e) {
+    dispatch({ type: "UPDATE_PERIOD", payload: e.target.value });
   }
 
   return (
@@ -25,22 +21,50 @@ export function MainPage() {
         sx={{
           display: "flex",
           mt: 2,
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <Box sx={{width: 80, mr: 2}}>
+          <FormControl fullWidth>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={state.sort}
+              onChange={handleSort}
+            >
+              <MenuItem value={"best"}>Best</MenuItem>
+              <MenuItem value={"new"}>New</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        {state.sort !== "new" && <Box sx={{width: 140}}>
+          <FormControl fullWidth>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={state.period}
+              onChange={handlePeriod}
+            >
+              <MenuItem value={"all"}>All time</MenuItem>
+              <MenuItem value={"year"}>Last year</MenuItem>
+              <MenuItem value={"month"}>Last month</MenuItem>
+              <MenuItem value={"week"}>Last week</MenuItem>
+              <MenuItem value={"day"}>Last day</MenuItem>
+              <MenuItem value={"hour"}>Last hour</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>}
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          mt: 0,
           mb: 2,
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Stack direction="row" spacing={1}>
-          <Button variant="outlined" onClick={handleHot}>
-            Hot
-          </Button>
-          <Button variant="outlined" onClick={handleNew}>
-            New
-          </Button>
-          <Button variant="outlined" onClick={handleTop}>
-            Top
-          </Button>
-        </Stack>
       </Box>
       {state.is_loading ? (
         <ResultPlaceholder />
