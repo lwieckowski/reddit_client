@@ -24,8 +24,8 @@ export async function search(
 }
 
 function makeUrl(term, type, sort, period) {
-  if (term == "") {
-    if (sort == "best") 
+  if (term === "") {
+    if (sort === "best") 
       return `${BASE_URL}/r/popular/top/.json?t=${period}`
     return `${BASE_URL}/r/popular/new/.json`
   }
