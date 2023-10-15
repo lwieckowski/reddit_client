@@ -1,7 +1,10 @@
 import { createContext } from "react";
 
 export const initialState = {
-  searchTerm: "node",
+  term: "",
+  type: "link", // link (posts), comment, sr (subreddit), user
+  sort: "top", // top, new, hot, relevance, best
+  period: "all", // all, year, month, week, day, hour
   data: [],
   error: "",
   is_loading: false,
@@ -14,7 +17,12 @@ export function reducer(state, action) {
     case "UPDATE_SEARCH_TERM":
       return {
         ...state,
-        searchTerm: action.payload,
+        term: action.payload,
+      };
+    case "UPDATE_SORT":
+      return {
+        ...state,
+        sort: action.payload,
       };
     case "FETCH_DATA":
       return {

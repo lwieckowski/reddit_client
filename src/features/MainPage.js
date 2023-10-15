@@ -2,22 +2,21 @@ import { useContext } from "react";
 import { Context } from "../Context";
 import { PostListItem } from "../components/PostListItem";
 import { Stack, Button, Box } from "@mui/material";
-import { fetchPosts } from "../services/RedditAPI";
 import { ResultPlaceholder } from "../components/ResultPlaceholder";
 
 export function MainPage() {
   const { state, dispatch } = useContext(Context);
 
   function handleHot() {
-    fetchPosts(dispatch, "hot");
+    dispatch({ type: "UPDATE_SORT", payload: "hot" });
   }
 
   function handleNew() {
-    fetchPosts(dispatch, "new");
+    dispatch({ type: "UPDATE_SORT", payload: "new" });
   }
 
   function handleTop() {
-    fetchPosts(dispatch, "top");
+    dispatch({ type: "UPDATE_SORT", payload: "top" });
   }
 
   return (
