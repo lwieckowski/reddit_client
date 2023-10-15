@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Context } from "../Context";
 import { PostListItem } from "../components/PostListItem";
-import { Stack, Button, Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Box, FormControl, Select, MenuItem } from "@mui/material";
 import { ResultPlaceholder } from "../components/ResultPlaceholder";
 
 export function MainPage() {

@@ -46,11 +46,6 @@ export function reducer(state, action) {
         data: [],
         is_loading: false,
       };
-    case "IS_LOADING":
-      return {
-        ...state,
-        is_loading: true,
-      };
     default:
       return state;
   }
