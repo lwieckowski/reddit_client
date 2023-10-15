@@ -25,8 +25,8 @@ export function PostListItem({ post }) {
     return `${secondsAgo} seconds ago`;
   }
 
-  const sxContainer = isSmallScreen ? {} : { display: 'flex', justifyContent: 'space-between' }
-
+  const sxContainer = isSmallScreen ? {} : { display: 'flex', justifyContent: 'space-between' };
+  const thumbSize = isSmallScreen ? 60 : 120;
   return (
     <Card sx={{ minWidth: 275, mt: 1 }}>
       <CardActionArea sx={ sxContainer }>
@@ -52,7 +52,7 @@ export function PostListItem({ post }) {
         </Box>
         <Box>
           <CardMedia
-            sx={!isSmallScreen && { width: 120, height: 120, m: 1, objectFit: "contain" }}
+            sx={{ width: thumbSize, height: thumbSize, m: 1, objectFit: "contain" }}
             image={post.thumbnail}
           />
         </Box>
