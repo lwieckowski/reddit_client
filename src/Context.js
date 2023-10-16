@@ -1,5 +1,12 @@
 import { createContext } from "react";
 
+export const Mode = {
+  POST: "POST",
+  POST_LOADING: "POST_LOADING",
+  SEARCH: "SEARCH",
+  SEARCH_LOADING: "SEARCH_LOADING",
+}
+
 export const initialState = {
   term: "",
   type: "link", // link (posts), comment, sr (subreddit), user
@@ -8,9 +15,8 @@ export const initialState = {
   data: [],
   postURL: "",
   post: [],
-  viewingPostDetails: false,
   error: "",
-  is_loading: true,
+  mode: Mode.SEARCH,
 };
 
 export const Context = createContext(initialState);
@@ -21,44 +27,44 @@ export function reducer(state, action) {
       return {
         ...state,
         term: action.payload,
-        is_loading: true,
+        mode: Mode.SEARCH_LOADING,
       };
     case "UPDATE_SORT":
       return {
         ...state,
         sort: action.payload,
-        is_loading: true,
+        mode: Mode.SEARCH_LOADING,
       };
     case "UPDATE_PERIOD":
       return {
         ...state,
         period: action.payload,
-        is_loading: true,
+        mode: Mode.SEARCH_LOADING,
       };
     case "UPDATE_POST_URL":
       return {
         ...state,
         postURL: action.payload,
+        mode: Mode.POST_LOADING,
       };
     case "FETCH_DATA":
       return {
         ...state,
         data: action.payload,
         error: "",
-        is_loading: false,
+        mode: Mode.SEARCH,
       };
     case "FETCH_POST_DETAILS":
       return {
         ...state,
         post: action.payload,
-        viewingPostDetails: true,
+        mode: Mode.POST,
       };
     case "ERROR":
       return {
         ...state,
         error: action.payload,
         data: [],
-        is_loading: false,
       };
     default:
       return state;

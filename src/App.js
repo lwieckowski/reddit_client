@@ -18,8 +18,6 @@ function App() {
     fetchComments(dispatch, state.postURL);
   }, [state.postURL]);
 
-  console.log(state);
-
   return (
     <Context.Provider value={{ state, dispatch }}>
       <Container maxWidth="md">

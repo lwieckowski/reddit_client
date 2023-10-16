@@ -6,6 +6,7 @@ import { ResultPlaceholder } from "../components/ResultPlaceholder";
 import { PostDetails } from "./PostDetails";
 import { Error } from "../components/Error";
 import { PostListing } from "./PostListing";
+import { Mode } from "../Context";
 
 export function MainPage() {
   const { state, dispatch } = useContext(Context);
@@ -75,13 +76,13 @@ export function MainPage() {
         }}
       >
       </Box>
-      <ResultPlaceholder visible={state.is_loading} />
+      <ResultPlaceholder visible={state.mode === Mode.SEARCH_LOADING} />
       <Error message={state.error} />
-      <PostDetails post={state.post} visible={state.viewingPostDetails} />
+      <PostDetails post={state.post} visible={state.mode === Mode.POST} />
       <PostListing
         posts={state.data}
         handleClick={handleClick}
-        visible={!state.viewingPostDetails}
+        visible={state.mode === Mode.SEARCH}
       />
     </div>
   );
