@@ -3,6 +3,9 @@ import { Context } from "../Context";
 import { PostListItem } from "../components/PostListItem";
 import { Box, FormControl, Select, MenuItem } from "@mui/material";
 import { ResultPlaceholder } from "../components/ResultPlaceholder";
+import { PostDetails } from "./PostDetails";
+import { Error } from "../components/Error";
+import { PostListing } from "./PostListing";
 
 export function MainPage() {
   const { state, dispatch } = useContext(Context);
@@ -15,6 +18,11 @@ export function MainPage() {
     dispatch({ type: "UPDATE_PERIOD", payload: e.target.value });
   }
 
+  function handleClick(post) {
+    dispatch({ type: "UPDATE_POST_URL", payload: post.permalink });
+    dispatch({ type: "UPDATE_POST_DETAILS", payload: post });
+  }
+
   return (
     <div>
       <Box
@@ -25,7 +33,7 @@ export function MainPage() {
           justifyContent: "center",
         }}
       >
-        <Box sx={{width: 80, mr: 2}}>
+        <Box sx={{ width: 80, mr: 2 }}>
           <FormControl fullWidth>
             <Select
               labelId="demo-simple-select-label"
@@ -38,13 +46,14 @@ export function MainPage() {
             </Select>
           </FormControl>
         </Box>
-        {state.sort !== "new" && <Box sx={{width: 140}}>
+        <Box sx={{ width: 140 }}>
           <FormControl fullWidth>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={state.period}
               onChange={handlePeriod}
+              disabled={state.sort === "new"}
             >
               <MenuItem value={"all"}>All time</MenuItem>
               <MenuItem value={"year"}>Last year</MenuItem>
@@ -54,7 +63,7 @@ export function MainPage() {
               <MenuItem value={"hour"}>Last hour</MenuItem>
             </Select>
           </FormControl>
-        </Box>}
+        </Box>
       </Box>
       <Box
         sx={{
@@ -66,13 +75,14 @@ export function MainPage() {
         }}
       >
       </Box>
-      {state.is_loading ? (
-        <ResultPlaceholder />
-      ) : state.error ? (
-        <p>{state.error}</p>
-      ) : (
-        state.data.map((item) => <PostListItem key={item.id} post={item} />)
-      )}
+      <ResultPlaceholder visible={state.is_loading} />
+      <Error message={state.error} />
+      <PostDetails post={state.post} visible={state.viewingPostDetails} />
+      <PostListing
+        posts={state.data}
+        handleClick={handleClick}
+        visible={!state.viewingPostDetails}
+      />
     </div>
   );
 }

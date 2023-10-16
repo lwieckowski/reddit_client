@@ -23,6 +23,25 @@ export async function search(
   }
 }
 
+export async function fetchComments(dispatch, path) {
+  if (path === "")
+    return
+  const url = `${BASE_URL}${path}.json`
+  const response = await fetch(url);
+  if (!response.ok) {
+    dispatch({
+      type: "ERROR",
+      payload: `Something went wrong! Response status: ${response.status}`,
+    });
+  } else {
+    const data = await response.json();
+    dispatch({
+      type: "FETCH_POST_DETAILS",
+      payload: data,
+    });
+  }
+}
+
 function makeUrl(term, type, sort, period) {
   if (term === "") {
     if (sort === "best") 

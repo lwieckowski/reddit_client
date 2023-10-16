@@ -6,6 +6,9 @@ export const initialState = {
   sort: "best", // new, hot, best
   period: "day", // all, year, month, week, day, hour
   data: [],
+  postURL: "",
+  post: [],
+  viewingPostDetails: false,
   error: "",
   is_loading: true,
 };
@@ -32,12 +35,23 @@ export function reducer(state, action) {
         period: action.payload,
         is_loading: true,
       };
+    case "UPDATE_POST_URL":
+      return {
+        ...state,
+        postURL: action.payload,
+      };
     case "FETCH_DATA":
       return {
         ...state,
         data: action.payload,
         error: "",
         is_loading: false,
+      };
+    case "FETCH_POST_DETAILS":
+      return {
+        ...state,
+        post: action.payload,
+        viewingPostDetails: true,
       };
     case "ERROR":
       return {

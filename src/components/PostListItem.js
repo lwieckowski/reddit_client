@@ -1,5 +1,7 @@
 import { Box, CardActionArea, Card, CardContent, Typography, CardMedia } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
+import { useContext } from "react";
+import { Context } from "../Context";
 
 const SECONDS_IN_MINUTE = 60;
 const MINUTES_IN_HOUR = 60;
@@ -9,8 +11,8 @@ const SECONDS_IN_DAY = SECONDS_IN_HOUR * HOURS_IN_DAY;
 
 const BULLET = "\u2022";
 
-export function PostListItem({ post }) {
-
+export function PostListItem({ post, handleClick }) {
+  
   const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   function getPostAge(post) {
@@ -25,13 +27,15 @@ export function PostListItem({ post }) {
     return `${secondsAgo} seconds ago`;
   }
 
-  const thumbWidth = isSmallScreen ? 100 : 120;
   const fontSmall = isSmallScreen ? 11 : 13;
   const fontLarge = isSmallScreen ? 13 : 16;
 
   return (
     <Card sx={{ minWidth: 275, mt: 1 }}>
-      <CardActionArea sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <CardActionArea
+        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        onClick={() => handleClick(post)}
+      >
         <Box>
           <CardContent>
             <Typography sx={{ fontSize: fontSmall }} color="text.secondary">
@@ -54,7 +58,7 @@ export function PostListItem({ post }) {
         </Box>
         <Box>
           <CardMedia
-            sx={{ width: thumbWidth, height: 120, m: 1, objectFit: "contain" }}
+            sx={{ width: 120, height: 120, m: 1, objectFit: "contain" }}
             image={post.thumbnail}
           />
         </Box>

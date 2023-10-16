@@ -1,6 +1,7 @@
 import { Skeleton } from "@mui/material";
 
-export function ResultPlaceholder() {
+export function ResultPlaceholder({ visible }) {
+  if (!visible) return;
   return (
     Array.from(new Array(10)).map((_, __) => (
       <div>
