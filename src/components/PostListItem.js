@@ -56,12 +56,6 @@ export function PostListItem({ post, handleClick }) {
             </Typography>
           </CardContent>
         </Box>
-        <Box>
-          <CardMedia
-            sx={{ width: 120, height: 120, m: 1, objectFit: "contain" }}
-            image={post.thumbnail}
-          />
-        </Box>
       </CardActionArea>
     </Card>
   );
