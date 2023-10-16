@@ -1,4 +1,4 @@
-import { PostListItem } from "../components/PostListItem";
+import { PostListItem } from "./PostListItem";
 
 export function PostListing({ posts, handleClick, visible }) {
     if (!visible) return;

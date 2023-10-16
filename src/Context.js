@@ -16,7 +16,7 @@ export const initialState = {
   postURL: "",
   post: [],
   error: "",
-  mode: Mode.SEARCH,
+  mode: Mode.SEARCH_LOADING,
 };
 
 export const Context = createContext(initialState);

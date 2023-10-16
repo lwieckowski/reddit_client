@@ -2,13 +2,16 @@ import { useContext } from "react";
 import { Context } from "../Context";
 import { Box, FormControl, Select, MenuItem } from "@mui/material";
 import { ResultPlaceholder } from "../components/ResultPlaceholder";
-import { PostDetails } from "./PostDetails";
+import { PostDetails } from "../components/PostDetails";
 import { Error } from "../components/Error";
-import { PostListing } from "./PostListing";
+import { PostListing } from "../components/PostListing";
 import { Mode } from "../Context";
+import { PostPlaceholder } from "../components/PostPlaceholder";
 
 export function MainPage() {
   const { state, dispatch } = useContext(Context);
+  
+  console.log(state.postURL);
 
   function handleSort(e) {
     dispatch({ type: "UPDATE_SORT", payload: e.target.value });
@@ -75,14 +78,15 @@ export function MainPage() {
         }}
       >
       </Box>
-      <ResultPlaceholder visible={state.mode === Mode.SEARCH_LOADING} />
       <Error message={state.error} />
-      <PostDetails post={state.post} visible={state.mode === Mode.POST} />
+      <ResultPlaceholder visible={state.mode === Mode.SEARCH_LOADING} />
       <PostListing
         posts={state.data}
         handleClick={handleClick}
         visible={state.mode === Mode.SEARCH}
       />
+      <PostPlaceholder visible={state.mode === Mode.POST_LOADING} />
+      <PostDetails post={state.post} visible={state.mode === Mode.POST} />
     </div>
   );
 }
