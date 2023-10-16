@@ -1,7 +1,5 @@
-import { Box, CardActionArea, Card, CardContent, Typography, CardMedia } from "@mui/material";
+import { Box, CardActionArea, Card, CardContent, Typography } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
-import { useContext } from "react";
-import { Context } from "../Context";
 
 const SECONDS_IN_MINUTE = 60;
 const MINUTES_IN_HOUR = 60;

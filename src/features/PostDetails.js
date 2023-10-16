@@ -1,8 +1,4 @@
-import { Box, CardActionArea, Card, CardContent, Typography, CardMedia } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
-import { useContext } from "react";
-import { Context } from "../Context";
-
+import {Card, CardContent, Typography } from "@mui/material";
 
 export function PostDetails({ post, visible }) {
   if (!visible) return;
