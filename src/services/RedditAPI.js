@@ -1,4 +1,4 @@
-const BASE_URL = "https://www.reddit.com/";
+const BASE_URL = "https://www.reddit.com";
 
 export async function search(
   dispatch,

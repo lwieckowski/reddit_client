@@ -1,4 +1,4 @@
-import { Box, CardActionArea, Card, CardContent, Typography } from "@mui/material";
+import { Box, CardActionArea, Card, CardContent, Typography, CardMedia } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 
 const SECONDS_IN_MINUTE = 60;
@@ -29,31 +29,42 @@ export function PostListItem({ post, handleClick }) {
   const fontLarge = isSmallScreen ? 13 : 16;
 
   return (
-    <Card sx={{ minWidth: 275, mt: 1 }}>
+    <Card sx={{ minWidth: 275, mt: 1, borderRadius: 2 }}>
       <CardActionArea
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
         onClick={() => handleClick(post)}
       >
-        <Box>
-          <CardContent>
-            <Typography sx={{ fontSize: fontSmall }} color="text.secondary">
-              <b>{post.subreddit_name_prefixed}</b> {BULLET} Posted by {post.author}{" "}
-              {BULLET} {getPostAge(post)}
-            </Typography>
-            <Typography
-              sx={{ fontSize: fontLarge, mt: 1 }}
-              color="text.secondary"
-              variant="body2"
-              fontWeight="fontWeightBold"
-            >
-              {post.title}
-            </Typography>
-            <Typography sx={{ fontSize: fontSmall, mt: 1 }} color="text.secondary">
-              {post.ups} upvotes {BULLET} {post.num_comments} comments {BULLET}{" "}
-              {post.total_awards_received} awards
-            </Typography>
-          </CardContent>
-        </Box>
+        <CardContent>
+          <Typography sx={{ fontSize: fontSmall }} color="text.secondary">
+            <b>{post.subreddit_name_prefixed}</b> {BULLET} Posted by {post.author}{" "}
+            {BULLET} {getPostAge(post)}
+          </Typography>
+          <Typography
+            sx={{ fontSize: fontLarge, mt: 1 }}
+            color="text.secondary"
+            variant="body2"
+            fontWeight="fontWeightBold"
+          >
+            {post.title}
+          </Typography>
+          <Box sx={{ m: 2 }}>
+            {post.post_hint === "image" && <CardMedia
+              component="img"
+              src={post.url}
+              sx={{ borderRadius: 2 }}
+            />}
+            {post.post_hint === "hosted:video" && <CardMedia
+              component="video"
+              src={post.media.reddit_video.fallback_url}
+              controls
+              sx={{ borderRadius: 2 }}
+            />}
+          </Box>
+          <Typography sx={{ fontSize: fontSmall, mt: 1 }} color="text.secondary">
+            {post.ups} upvotes {BULLET} {post.num_comments} comments {BULLET}{" "}
+            {post.total_awards_received} awards
+          </Typography>
+        </CardContent>
+
       </CardActionArea>
     </Card>
   );
