@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 export const Mode = {
   POST: "POST",
-  POST_LOADING: "POST_LOADING",
+  COMMENTS_LOADING: "COMMENTS_LOADING",
   SEARCH: "SEARCH",
   SEARCH_LOADING: "SEARCH_LOADING",
 }
@@ -14,7 +14,8 @@ export const initialState = {
   period: "day", // all, year, month, week, day, hour
   data: [],
   postURL: "",
-  post: [],
+  postId: 0,
+  comments: [],
   error: "",
   mode: Mode.SEARCH_LOADING,
 };
@@ -44,8 +45,9 @@ export function reducer(state, action) {
     case "UPDATE_POST_URL":
       return {
         ...state,
-        postURL: action.payload,
-        mode: Mode.POST_LOADING,
+        postURL: action.payload.url,
+        postId: action.payload.id,
+        mode: Mode.COMMENTS_LOADING,
       };
     case "FETCH_DATA":
       return {
@@ -54,10 +56,15 @@ export function reducer(state, action) {
         error: "",
         mode: Mode.SEARCH,
       };
-    case "FETCH_POST_DETAILS":
+    case "GO_BACK":
       return {
         ...state,
-        post: action.payload,
+        mode: Mode.SEARCH,
+      }
+    case "FETCH_COMMENTS":
+      return {
+        ...state,
+        comments: action.payload,
         mode: Mode.POST,
       };
     case "ERROR":

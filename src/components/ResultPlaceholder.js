@@ -11,7 +11,7 @@ export function ResultPlaceholder({ visible }) {
           animation="pulse" />
         <Skeleton
           variant="rounded"
-          width={840} height={90}
+          width="100%" height={180}
           sx={{ ml: 1 }}
           animation="pulse" />
         <Skeleton

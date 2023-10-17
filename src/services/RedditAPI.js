@@ -18,7 +18,7 @@ export async function search(
     const data = await response.json();
     dispatch({
       type: "FETCH_DATA",
-      payload: data.data.children.map((c) => c.data),
+      payload: data.data.children.map((c, id) => ({...c.data, id: id})),
     });
   }
 }
@@ -36,8 +36,8 @@ export async function fetchComments(dispatch, path) {
   } else {
     const data = await response.json();
     dispatch({
-      type: "FETCH_POST_DETAILS",
-      payload: data,
+      type: "FETCH_COMMENTS",
+      payload: data[1].data.children,
     });
   }
 }

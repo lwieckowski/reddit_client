@@ -1,49 +1,76 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography, Box, CardMedia, IconButton } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export function PostDetails({ post, visible }) {
+const BULLET = "\u2022";
+
+export function PostDetails({ post, comments, visible, handleGoBack }) {
+
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
+
+  const fontSmall = isSmallScreen ? 11 : 13;
+  const fontLarge = isSmallScreen ? 13 : 16;
+
   if (!visible) return;
-
-  const title = post[0].data.children[0].data.title;
-  const body = post[0].data.children[0].data.selftext;
-  const comments = post[1].data.children;
-
 
   return (
     <div>
+      <IconButton
+        children={<ArrowBackIcon></ArrowBackIcon>} size="large" onClick={handleGoBack}>
+      </IconButton>
       <Card sx={{ minWidth: 275, mt: 1 }}>
         <CardContent>
           <Typography
-            sx={{ fontSize: 24, mt: 1 }}
+            sx={{ fontSize: fontLarge, mt: 1 }}
             color="text.secondary"
             variant="body2"
             fontWeight="fontWeightBold"
           >
-            {title}
+            {post.title}
           </Typography>
-            <Typography
-            sx={{ fontSize: 16, mt: 1 }}
+          <Typography
+            sx={{ fontSize: fontLarge, mt: 1 }}
             color="text.secondary"
           >
-            {body}
+            {post.body}
           </Typography>
+          <Box sx={{ m: 2 }}>
+            {post.post_hint === "image" && <CardMedia
+              component="img"
+              src={post.url}
+              sx={{ borderRadius: 2 }}
+            />}
+            {post.post_hint === "hosted:video" && <CardMedia
+              component="video"
+              src={post.media.reddit_video.fallback_url}
+              controls
+              sx={{ borderRadius: 2 }}
+            />}
+          </Box>
         </CardContent>
       </Card>
-                <Typography
-            sx={{ fontSize: 16, mt: 4, mb: 1 }}
-            color="text.secondary"
-            variant="body2"
-            fontWeight="fontWeightBold"
-          >
-            Comments:
-          </Typography>
+      <Typography
+        sx={{ fontSize: fontLarge, mt: 4, mb: 1 }}
+        color="text.secondary"
+        variant="body2"
+        fontWeight="fontWeightBold"
+      >
+        Comments:
+      </Typography>
       {comments.map(item =>
         <Card sx={{ minWidth: 275, mt: 1 }}>
           <CardContent>
+            <Typography sx={{ fontSize: fontSmall }} color="text.secondary">
+              <b>{post.subreddit_name_prefixed}</b> {BULLET} Posted by {item.data.author}{" "}
+            </Typography>
             <Typography
-              sx={{ fontSize: 16, mt: 1 }}
+              sx={{ fontSize: fontLarge, mt: 1 }}
               color="text.secondary"
             >
               {item.data.body}
+            </Typography>
+            <Typography sx={{ fontSize: fontSmall, mt: 1 }} color="text.secondary">
+              {item.data.ups} upvotes {" "}
             </Typography>
           </CardContent>
         </Card>

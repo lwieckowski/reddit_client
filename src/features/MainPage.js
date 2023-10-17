@@ -6,11 +6,11 @@ import { PostDetails } from "../components/PostDetails";
 import { Error } from "../components/Error";
 import { PostListing } from "../components/PostListing";
 import { Mode } from "../Context";
-import { PostPlaceholder } from "../components/PostPlaceholder";
+import { CommentsPlaceholder } from "../components/PostPlaceholder";
 
 export function MainPage() {
   const { state, dispatch } = useContext(Context);
-  
+
   console.log(state.postURL);
 
   function handleSort(e) {
@@ -22,8 +22,17 @@ export function MainPage() {
   }
 
   function handleClick(post) {
-    dispatch({ type: "UPDATE_POST_URL", payload: post.permalink });
-    dispatch({ type: "UPDATE_POST_DETAILS", payload: post });
+    window.scrollTo(0, 0);
+    dispatch(
+      {
+        type: "UPDATE_POST_URL",
+        payload: { url: post.permalink, id: post.id }
+      }
+    );
+  }
+
+  function handleGoBack() {
+    dispatch({ type: "GO_BACK" })
   }
 
   return (
@@ -85,8 +94,13 @@ export function MainPage() {
         handleClick={handleClick}
         visible={state.mode === Mode.SEARCH}
       />
-      <PostPlaceholder visible={state.mode === Mode.POST_LOADING} />
-      <PostDetails post={state.post} visible={state.mode === Mode.POST} />
+      <PostDetails
+        post={state.data[state.postId]}
+        comments={state.comments}
+        visible={state.mode === Mode.COMMENTS_LOADING || state.mode === Mode.POST}
+        handleGoBack={handleGoBack}
+      />
+      <CommentsPlaceholder visible={state.mode === Mode.COMMENTS_LOADING} />
     </div>
   );
 }
