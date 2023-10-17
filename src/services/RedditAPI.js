@@ -48,5 +48,5 @@ function makeUrl(term, type, sort, period) {
       return `${BASE_URL}/r/popular/top/.json?t=${period}`
     return `${BASE_URL}/r/popular/new/.json`
   }
-  return `${BASE_URL}search/.json?q=${term}&type=${type}&sort=${sort}&t=${period}`;
+  return `${BASE_URL}/search/.json?q=${term}&type=${type}&sort=${sort}&t=${period}`;
 }
