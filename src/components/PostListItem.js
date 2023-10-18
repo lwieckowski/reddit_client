@@ -61,7 +61,6 @@ export function PostListItem({ post, handleClick }) {
                 muted
                 loop
                 playsInline
-                controls
                 sx={{ borderRadius: 2 }}
               />}
             </Box>
