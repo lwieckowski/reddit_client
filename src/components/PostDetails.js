@@ -45,8 +45,8 @@ export function PostDetails({ post, comments, visible, handleGoBack }) {
               />}
               {post.post_hint === "hosted:video" && <CardMedia
                 component="video"
-                src={post.media.reddit_video.fallback_url + "#t=0.1"}
-                preload="metadata"
+                src={post.media.reddit_video.fallback_url}
+                autoPlay
                 muted
                 loop
                 playsInline
