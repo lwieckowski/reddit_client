@@ -21,7 +21,7 @@ function App() {
   return (
     <Context.Provider value={{ state, dispatch }}>
       <Container maxWidth="sm">
-        <SearchAppBar />
+        <SearchAppBar state={state} />
         <MainPage />
       </Container>
     </Context.Provider>

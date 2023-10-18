@@ -60,6 +60,7 @@ export function reducer(state, action) {
       return {
         ...state,
         mode: Mode.SEARCH,
+        comments: [],
       }
     case "FETCH_COMMENTS":
       return {

@@ -51,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export function SearchAppBar() {
+export function SearchAppBar( { state }) {
   const { dispatch } = React.useContext(Context);
 
   function handleKeyDown(e) {
@@ -62,7 +62,7 @@ export function SearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar component="nav">
         <Toolbar>
           <Reddit sx={{ mr: 1 }} />
           <Typography
