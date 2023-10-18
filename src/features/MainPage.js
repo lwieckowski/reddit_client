@@ -7,8 +7,7 @@ import { Error } from "../components/Error";
 import { PostListing } from "../components/PostListing";
 import { Mode } from "../Context";
 import { CommentsPlaceholder } from "../components/PostPlaceholder";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 export function MainPage() {
   const { state, dispatch } = useContext(Context);
 
@@ -47,10 +46,10 @@ export function MainPage() {
         }}
       >
         {state.mode !== Mode.SEARCH && state.mode !== Mode.SEARCH_LOADING && <IconButton
-          children={<ArrowBackIcon></ArrowBackIcon>}
+          children={<ArrowBackIosNewIcon fontSize="medium"></ArrowBackIosNewIcon>}
           size="large"
           onClick={handleGoBack}
-          sx={{ height: "55px" }}
+          // sx={{ height: "55px" }}
         >
         </IconButton>}
         {state.mode === Mode.SEARCH &&
