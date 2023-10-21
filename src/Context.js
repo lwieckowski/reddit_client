@@ -1,5 +1,13 @@
 import { createContext } from "react";
 
+export const BULLET = "\u2022";export const SECONDS_IN_MINUTE = 60;
+const MINUTES_IN_HOUR = 60;
+const HOURS_IN_DAY = 24;
+export const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * MINUTES_IN_HOUR;
+export const SECONDS_IN_DAY = SECONDS_IN_HOUR * HOURS_IN_DAY;
+export const FONT_SMALL = 12;
+export const FONT_LARGE = 15;
+
 export const Mode = {
   POST: "POST",
   COMMENTS_LOADING: "COMMENTS_LOADING",
@@ -7,7 +15,7 @@ export const Mode = {
   SEARCH_LOADING: "SEARCH_LOADING",
 }
 
-export const initialState = {
+export const INITIAL_STATE = {
   term: "",
   type: "link", // link (posts), comment, sr (subreddit), user
   sort: "best", // new, hot, best
@@ -20,61 +28,4 @@ export const initialState = {
   mode: Mode.SEARCH_LOADING,
 };
 
-export const Context = createContext(initialState);
-
-export function reducer(state, action) {
-  switch (action.type) {
-    case "UPDATE_SEARCH_TERM":
-      return {
-        ...state,
-        term: action.payload,
-        mode: Mode.SEARCH_LOADING,
-      };
-    case "UPDATE_SORT":
-      return {
-        ...state,
-        sort: action.payload,
-        mode: Mode.SEARCH_LOADING,
-      };
-    case "UPDATE_PERIOD":
-      return {
-        ...state,
-        period: action.payload,
-        mode: Mode.SEARCH_LOADING,
-      };
-    case "UPDATE_POST_URL":
-      return {
-        ...state,
-        postURL: action.payload.url,
-        postId: action.payload.id,
-        mode: Mode.COMMENTS_LOADING,
-      };
-    case "FETCH_DATA":
-      return {
-        ...state,
-        data: action.payload,
-        error: "",
-        mode: Mode.SEARCH,
-      };
-    case "GO_BACK":
-      return {
-        ...state,
-        mode: Mode.SEARCH,
-        comments: [],
-      }
-    case "FETCH_COMMENTS":
-      return {
-        ...state,
-        comments: action.payload,
-        mode: Mode.POST,
-      };
-    case "ERROR":
-      return {
-        ...state,
-        error: action.payload,
-        data: [],
-      };
-    default:
-      return state;
-  }
-}
+export const Context = createContext(INITIAL_STATE);

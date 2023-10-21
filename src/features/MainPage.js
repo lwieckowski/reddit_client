@@ -8,10 +8,20 @@ import { PostListing } from "../components/PostListing";
 import { Mode } from "../Context";
 import { CommentsPlaceholder } from "../components/PostPlaceholder";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { search } from "../services/RedditAPI";
+import { fetchComments } from "../services/RedditAPI";
+import { useEffect } from "react";
+
 export function MainPage() {
   const { state, dispatch } = useContext(Context);
 
-  console.log(state.postURL);
+  useEffect(() => {
+    search(dispatch, state.term, state.type, state.sort, state.period);
+  }, [state.term, state.type, state.sort, state.period]);
+
+  useEffect(() => {
+    fetchComments(dispatch, state.postURL);
+  }, [state.postURL]);
 
   function handleSort(e) {
     dispatch({ type: "UPDATE_SORT", payload: e.target.value });
@@ -36,7 +46,7 @@ export function MainPage() {
   }
 
   return (
-    <div>
+    <Box>
       <Box
         sx={{
           display: "flex",
@@ -49,7 +59,6 @@ export function MainPage() {
           children={<ArrowBackIosNewIcon fontSize="medium"></ArrowBackIosNewIcon>}
           size="large"
           onClick={handleGoBack}
-          // sx={{ height: "55px" }}
         >
         </IconButton>}
         {state.mode === Mode.SEARCH &&
@@ -111,6 +120,6 @@ export function MainPage() {
         handleGoBack={handleGoBack}
       />
       <CommentsPlaceholder visible={state.mode === Mode.COMMENTS_LOADING} />
-    </div>
+    </Box>
   );
 }
