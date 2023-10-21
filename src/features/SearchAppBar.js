@@ -50,7 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export function SearchAppBar( { state }) {
+export function SearchAppBar() {
   const { dispatch } = React.useContext(Context);
 
   function handleKeyDown(e) {

@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import { useReducer } from "react";
 import { Context, INITIAL_STATE } from "./Context";
 import { reducer } from "./Reducer";
-import { SearchAppBar } from "./components/SearchAppBar";
+import { SearchAppBar } from "./features/SearchAppBar";
 import { MainPage } from "./features/MainPage";
 
 function App() {
