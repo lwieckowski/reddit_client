@@ -57,9 +57,9 @@ export function PostListItem({ post, handleClick }) {
               {post.post_hint === "hosted:video" && <CardMedia
                 component="video"
                 src={post.media.reddit_video.fallback_url}
-                autoPlay
                 muted
-                loop
+                preload="metadata"
+                controls
                 playsInline
                 sx={{ borderRadius: 2 }}
               />}
