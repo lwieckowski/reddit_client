@@ -17,10 +17,12 @@ export function MainPage() {
 
   useEffect(() => {
     search(dispatch, state.term, state.type, state.sort, state.period);
+    window.scrollTo(0, 0);
   }, [state.term, state.type, state.sort, state.period]);
 
   useEffect(() => {
     fetchComments(dispatch, state.postURL);
+    window.scrollTo(0, 0);
   }, [state.postURL]);
 
   function handleSort(e) {
@@ -32,7 +34,6 @@ export function MainPage() {
   }
 
   function handleClick(post) {
-    window.scrollTo(0, 0);
     dispatch(
       {
         type: "UPDATE_POST_URL",
@@ -61,7 +62,7 @@ export function MainPage() {
           onClick={handleGoBack}
         >
         </IconButton>}
-        {state.mode === Mode.SEARCH &&
+        {state.mode !== Mode.POST && state.mode !== Mode.COMMENTS_LOADING &&
         <Box sx={{ display: "flex", height: "55px" }}>
           <Box sx={{ width: 80, mr: 2 }}>
             <FormControl fullWidth>
